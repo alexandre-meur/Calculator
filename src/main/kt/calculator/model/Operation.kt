@@ -13,4 +13,8 @@ class Operation(private val operation : Char) : CalculatorChar(){
     init{ if(operation !in correctOperations) throw NotAnOperationException()}
 
     override fun getChar() = operation
+
+    override fun equals(other: Any?): Boolean =
+        if(other !is Operation) false
+        else operation == other.operation
 }
