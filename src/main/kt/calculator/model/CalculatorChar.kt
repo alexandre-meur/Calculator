@@ -7,4 +7,5 @@ abstract open class CalculatorChar{
     abstract fun getChar() : Char
 
     override fun toString() = String() + getChar()
+    abstract override fun equals(other: Any?): Boolean
 }

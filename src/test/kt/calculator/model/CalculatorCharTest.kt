@@ -10,14 +10,14 @@ class CalculatorCharTest{
     fun getCharDigitTest(){
         val listDigit : MutableList<Digit> = mutableListOf()
         for(i in 1..9) listDigit.add(Digit(i.toShort()))
-        for(char in listDigit) assert(char.digit in correctDigits)
+        for(char in listDigit) assert(char.digit in CORRECT_DIGITS)
     }
 
     @Test
     fun getCharOperationTest(){
         val listOperation : MutableList<Operation> = mutableListOf()
-        for(c in correctOperations) listOperation.add(Operation(c))
-        for(op in listOperation) assert(op.getChar() in correctOperations)
+        for(c in CORRECT_OPERATIONS) listOperation.add(Operation(c))
+        for(op in listOperation) assert(op.getChar() in CORRECT_OPERATIONS)
     }
 
     @Test
