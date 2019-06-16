@@ -23,7 +23,7 @@ class ListChar() {
 
     operator fun plus(c : Char){
         when {
-            c in correctOperations -> add(Operation(c))
+            c in CORRECT_OPERATIONS -> add(Operation(c))
             c == ',' -> add(Comma())
             c == 'A' -> add(Answer())
             else -> throw Exception("Wrong usage of operator plus on ListChar")

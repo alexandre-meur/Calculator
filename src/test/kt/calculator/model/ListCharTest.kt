@@ -17,7 +17,7 @@ class ListCharTest{
     @Test
     fun addTest(){
         //Digits
-        for(i in correctDigits) {
+        for(i in CORRECT_DIGITS) {
             assertFalse(listChar.list.contains(Digit(i)))
             listChar + i
             assert(listChar.list.contains(Digit(i)))
@@ -31,7 +31,7 @@ class ListCharTest{
         listChar + 'A'
         assert(listChar.list.contains(Answer()))
         //Operations
-        for(op in correctOperations) {
+        for(op in CORRECT_OPERATIONS) {
             assertFalse(listChar.list.contains(Operation(op)))
             listChar + op
             assert(listChar.list.contains(Operation(op)))
