@@ -7,7 +7,10 @@ import javafx.scene.control.Button
 
 class RightBarButton : Button(){
 
-    init { setRightBarSize() }
+    init {
+        setRightBarSize()
+        font = FONT_RIGHT_BAR_BUTTON
+    }
 
     /**
      * Set the position of the button on the right bar

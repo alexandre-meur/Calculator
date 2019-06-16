@@ -4,10 +4,14 @@ import calculator.view.SCREEN_HEIGHT
 import calculator.view.SCREEN_MARGIN
 import calculator.view.SCREEN_SEPARATION_WITH_BUTTONS
 import javafx.scene.control.Button
+import javafx.scene.text.Font
 
 class NumericPadButton : Button() {
 
-    init { setNumericSize() }
+    init {
+        setNumericSize()
+        font = FONT_NUMERIC_BUTTON
+    }
 
     /**
      * Set the position of the button on the numerical grid

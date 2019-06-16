@@ -7,7 +7,6 @@
 package calculator
 
 
-import calculator.controller.CalculatorController
 import calculator.view.CalculatorView
 import javafx.application.Application
 import javafx.stage.Stage
@@ -15,8 +14,7 @@ import javafx.stage.Stage
 class Calculator : Application() {
 
     override fun start(primaryStage: Stage) {
-        val controller = CalculatorController()
-        val stage = CalculatorView(controller)
+        CalculatorView()
     }
 }
 
