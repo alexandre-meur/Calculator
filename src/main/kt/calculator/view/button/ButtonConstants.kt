@@ -1,5 +1,6 @@
 package calculator.view.button
 
+import calculator.view.GRID_GAP
 import javafx.scene.text.Font
 
 //Numeric buttons
@@ -11,7 +12,7 @@ const val NUMERIC_BUTTON_ROWSPAN = 2
 const val ZERO_X = 7
 const val ZERO_Y = 0
 const val ZERO_COLSPAN = 2
-const val ZERO_WIDTH = 2*NUMERIC_BUTTON_WIDTH
+const val ZERO_WIDTH = 2*NUMERIC_BUTTON_WIDTH + GRID_GAP
 const val ZERO_TEXT = "0"
 const val COMMA_X = 7
 const val COMMA_Y = 2
@@ -23,5 +24,5 @@ const val SEPARATION_NUMERIC_PAD_RIGHT_BAR = 30.0
 //Right bar buttons
 val FONT_RIGHT_BAR_BUTTON = Font("Verdana", 12.0)
 const val RIGHT_BAR_BUTTON_WIDTH = 40.0
-const val RIGHT_BAR_BUTTON_HEIGHT = 30.0
+const val RIGHT_BAR_BUTTON_HEIGHT = 25.0
 const val RIGHT_BAR_Y = 3

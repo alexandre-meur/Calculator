@@ -5,8 +5,12 @@ import calculator.controller.DEFAULT_SCREEN_TEXT
 import calculator.model.*
 import calculator.view.button.*
 import javafx.event.EventHandler
+import javafx.geometry.Insets
+import javafx.geometry.VPos
 import javafx.scene.Scene
 import javafx.scene.layout.GridPane
+import javafx.scene.layout.Pane
+import javafx.scene.layout.RowConstraints
 import javafx.scene.paint.Color
 import javafx.scene.text.TextAlignment
 import javafx.stage.Stage
@@ -24,12 +28,16 @@ class CalculatorView : Stage(){
     //Initialize the view
     init{
         title = VIEW_TITLE
+        isResizable = false
         scene = Scene(grid, VIEW_WIDTH, VIEW_HEIGHT, Color.WHITESMOKE)
 
-        //Adding screen
+        //Setting up the grid
+        setupGrid()
+
+        //Adding screen to the grid
         addScreen()
 
-        //Adding buttons
+        //Adding buttons to the grid
         addNumericButtons()
         addRightBarButtons()
 
@@ -38,15 +46,30 @@ class CalculatorView : Stage(){
     }
 
     /**
+     * Setup the grid
+     */
+    private fun setupGrid() {
+        grid.padding = Insets(GRID_PADDING)
+        grid.hgap = GRID_GAP
+        grid.vgap = GRID_GAP
+        grid.rowConstraints.add(0, RowConstraints(SCREEN_HEIGHT))
+    }
+
+    /**
      * Add the screen to the view
      */
     private fun addScreen() {
+        //Pane is used for formatting the screen
+        val pane = Pane()
+        pane.style = SCREEN_STYLE
+        grid.add(pane, SCREEN_COLUMN, SCREEN_ROW, SCREEN_COLSPAN, SCREEN_ROWSPAN)
+
         val screen = controller.screen
         screen.text = DEFAULT_SCREEN_TEXT
-        screen.prefWidth(SCREEN_WIDTH)
-        screen.prefHeight(SCREEN_HEIGHT)
-        screen.font = FONT_SCREEN
+        screen.wrappingWidth = SCREEN_WRAPPING_WIDTH
+        screen.textOrigin = VPos.CENTER
         screen.textAlignment = TextAlignment.RIGHT
+        screen.font = FONT_SCREEN
         grid.add(screen, SCREEN_COLUMN, SCREEN_ROW, SCREEN_COLSPAN, SCREEN_ROWSPAN)
     }
 
@@ -58,8 +81,8 @@ class CalculatorView : Stage(){
         for(i in 0..2){
             for(j in 0..2) {
                 val button = NumericPadButton()
-                button.text = (i+1 + j*3).toString()
-                button.onAction = EventHandler { controller.sendInput(Digit(i+1 + j*3)) }
+                button.text = (j+1 + i*3).toString()
+                button.onAction = EventHandler { controller.sendInput(Digit(j+1 + i*3)) }
                 grid.add(button, j, 2*i+1, NUMERIC_BUTTON_COLSPAN, NUMERIC_BUTTON_ROWSPAN)
             }
         }
@@ -85,7 +108,7 @@ class CalculatorView : Stage(){
         val buttonCancel = RightBarButton()
         rightBarIndex++
         buttonCancel.text = CANCEL_TEXT
-        buttonCancel.onAction = EventHandler { controller.flush() }
+        buttonCancel.onAction = EventHandler { controller::flushMem.also { controller::flushScreen }}
         grid.add(buttonCancel, RIGHT_BAR_Y, rightBarIndex)
 
         //Adding operations buttons
@@ -106,6 +129,7 @@ class CalculatorView : Stage(){
 
         //Adding equals button
         val buttonEqual = RightBarButton()
+        rightBarIndex++
         buttonEqual.text = EQUAL_TEXT
         buttonEqual.onAction = EventHandler { controller.sendInput(Equal()) }
         buttonEqual.isDefaultButton = true

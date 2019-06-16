@@ -19,7 +19,9 @@ class CalculatorController(){
             try {
                 screen.text = listChar.calcul()
             }catch(e : Exception){
-                screen.text = e.message
+                screen.text = ERROR_MSG
+            }finally{
+                flushMem()
             }
         }else{
             listChar.add(buttonPress)
@@ -30,8 +32,11 @@ class CalculatorController(){
     /**
      * Empty all memorized inputs
      */
-    fun flush() {
+    fun flushMem() {
         listChar.flush()
+    }
+
+    fun flushScreen() {
         screen.text = ""
     }
 
