@@ -1,6 +1,7 @@
 package calculator.view
 
 import calculator.controller.CalculatorController
+import calculator.controller.DEFAULT_SCREEN_TEXT
 import calculator.model.*
 import calculator.view.button.*
 import javafx.event.EventHandler
@@ -8,6 +9,8 @@ import javafx.scene.Group
 import javafx.scene.Scene
 import javafx.scene.control.Button
 import javafx.scene.paint.Color
+import javafx.scene.text.Text
+import javafx.scene.text.TextAlignment
 import javafx.stage.Stage
 
 /**
@@ -15,15 +18,18 @@ import javafx.stage.Stage
  * buttons to type digits and comma and a side-bar on the right side to call operations and
  * other functionnalities
  */
-class CalculatorView(val controller : CalculatorController) : Stage(){
+class CalculatorView : Stage(){
 
+    private val controller = CalculatorController()
     private val root = Group()
-    private val buttons = mutableListOf<Button>()
 
     //Initialize the view
     init{
         title = VIEW_TITLE
         scene = Scene(root, VIEW_WIDTH, VIEW_HEIGHT, Color.WHITESMOKE)
+
+        //Adding screen
+        addScreen()
 
         //Adding buttons
         addNumericButtons()
@@ -31,6 +37,20 @@ class CalculatorView(val controller : CalculatorController) : Stage(){
 
         //Show the view
         show()
+    }
+
+    /**
+     * Add the screen to the view
+     */
+    private fun addScreen() {
+        val screen = controller.screen
+        screen.text = DEFAULT_SCREEN_TEXT
+        screen.prefWidth(SCREEN_WIDTH)
+        screen.prefHeight(SCREEN_HEIGHT)
+        screen.relocate(SCREEN_MARGIN, SCREEN_MARGIN)
+        screen.font = FONT_SCREEN
+        screen.textAlignment = TextAlignment.LEFT
+        root.children.add(screen)
     }
 
     /**
@@ -99,7 +119,6 @@ class CalculatorView(val controller : CalculatorController) : Stage(){
         //Adding equals button
         val buttonEqual = RightBarButton()
         buttonEqual.placeOnRightBar(rightBarIndex)
-        rightBarIndex++
         buttonEqual.text = EQUAL_TEXT
         buttonEqual.onAction = EventHandler { controller.sendInput(Equal()) }
         buttonEqual.isDefaultButton = true
